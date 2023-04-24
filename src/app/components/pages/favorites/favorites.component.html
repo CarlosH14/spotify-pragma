@@ -1,1 +1,6 @@
-<p>favorites works!</p>
+<div class="container">
+  <h1 class="title">List of Favorite Songs</h1>
+  <br>
+  <app-card-grid [songs]="songs"></app-card-grid>
+  <p *ngIf="songs.length==0">No favs songs</p>
+</div>

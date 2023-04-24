@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Single } from 'src/app/models/single.model';
 
 @Component({
   selector: 'app-card-grid',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class CardGridComponent {
 
+  @Input() songs: Single[]
 }

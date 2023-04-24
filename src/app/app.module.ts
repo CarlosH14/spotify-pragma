@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeButtonComponent } from './components/atoms/home-button/home-button.component';
 import { FavsButtonComponent } from './components/atoms/favs-button/favs-button.component';
@@ -20,6 +20,8 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { FavoritesComponent } from './components/pages/favorites/favorites.component';
 import { SongComponent } from './components/pages/song/song.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { SongComponent } from './components/pages/song/song.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    RouterModule.forRoot(routes, {useHash: true})
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Single } from 'src/app/models/single.model';
 
 @Component({
   selector: 'app-add-favs-button',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AddFavsButtonComponent {
 
+  @Input() song: Single;
+
+  addFavorite(song:Single){
+    song.isFavorite=true
+  }
 }

@@ -1,1 +1,39 @@
-<p>card works!</p>
+<div class="card" *ngIf="!song.isFavorite">
+  <div class="card-info">
+    <div class="song-image">
+      <app-card-image [image]="song.songImageUrl"></app-card-image>
+    </div>
+    <div class="song-info">
+      <div class="song-name">
+        <p>{{song.songName}}</p>
+      </div>
+      <div class="artists-name">
+        <app-card-artist [artists]="song.artistNames"></app-card-artist>
+      </div>
+    </div>
+    <div class="buttons">
+      <app-see-more-button></app-see-more-button>
+      <app-add-favs-button [song]="song"></app-add-favs-button>
+    </div>
+  </div>
+</div>
+
+<div class="card-favorite" *ngIf="song.isFavorite">
+  <div class="card-info">
+    <div class="song-image">
+      <app-card-image [image]="song.songImageUrl"></app-card-image>
+    </div>
+    <div class="song-info">
+      <div class="song-name">
+        <p>{{song.songName}}</p>
+      </div>
+      <div class="artists-name">
+        <app-card-artist [artists]="song.artistNames"></app-card-artist>
+      </div>
+    </div>
+    <div class="buttons">
+      <app-see-more-button></app-see-more-button>
+      <app-add-favs-button [song]="song"></app-add-favs-button>
+    </div>
+  </div>
+</div>

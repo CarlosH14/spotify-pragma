@@ -1,18 +1,28 @@
 nav
     display: flex
     justify-content: space-between
+    align-items: center
     background-color: black
     color: white
     .logo
         width: 10em
         display: flex
         img
-            margin: 20px 5px 20px 20px
-            padding: 10px
+          margin: 20px 5px 20px 20px
+          padding: 10px
+          filter: grayscale(100%)
+          transition: .3s
+        img:hover
+          filter: none
         h1
-            font-family: 'Signika', sans-serif
-            margin: 20px 20px 20px 5px
-            padding: 10px
+          font-family: 'Signika', sans-serif
+          margin: 20px 20px 20px 5px
+          padding: 10px
     .navbar-buttons
+      min-width: 250px
+      display: flex
+      gap: 10px
+      justify-content: space-around
+
 
 

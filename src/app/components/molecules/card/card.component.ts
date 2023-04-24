@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Single } from 'src/app/models/single.model';
 
 @Component({
   selector: 'app-card',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./card.component.sass']
 })
 export class CardComponent {
+
+  @Input() song :Single;
 
 }
