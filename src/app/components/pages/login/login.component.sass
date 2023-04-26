@@ -1,0 +1,56 @@
+
+body
+  margin: 0
+  padding: 0
+  height: 600px
+  background-color: #000000ba
+
+h1
+  color: white
+  display: flex
+  justify-content: center
+
+.login
+  width: 382px
+  display: flex
+  justify-content: center
+  margin: auto
+  margin: 20 0 0 450px
+  padding: 80px
+  background: #014e19
+  border-radius: 15px
+
+.login-button
+  padding: 0.8em 1.8em
+  border: 2px solid #17c337
+  position: relative
+  overflow: hidden
+  background-color: transparent
+  text-align: center
+  font-size: 25px
+  transition: .3s
+  z-index: 1
+  color: #ffffff
+  cursor: pointer
+
+  &::before
+    content: ''
+    width: 0
+    height: 300%
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%) rotate(45deg)
+    background: #50ef88
+    transition: .5s ease
+    display: block
+    z-index: -1
+
+  &:hover
+    &::before
+      width: 105%
+    color: #ffffff
+
+
+
+

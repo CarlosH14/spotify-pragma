@@ -1,0 +1,65 @@
+.delete-fav
+  padding: 0.8em 1.8em
+  border: 2px solid #17c337
+  position: relative
+  overflow: hidden
+  background-color: transparent
+  text-align: center
+  font-size: 10px
+  transition: .3s
+  z-index: 1
+  color: #ffffff
+  cursor: pointer
+
+  &::before
+    content: ''
+    width: 0
+    height: 300%
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%) rotate(45deg)
+    background: #024e1d
+    transition: .5s ease
+    display: block
+    z-index: -1
+
+  &:hover
+    &::before
+      width: 105%
+    color: #ffffff
+
+#notification-area
+  position: fixed
+  top: 50%
+  right: 30%
+  width: 250px
+  height: 100vh
+
+  .notification
+    position: relative
+    width: 250px
+    padding: 15px 10px
+    background: #003a24
+    color: #f5f5f5
+    font-size: 14px
+    font-weight: 600
+    border-radius: 5px
+    margin: 5px 0px
+    opacity: 0
+    left: 20px
+    animation: showNotification 500ms ease-in-out forwards
+
+    &.success
+      background: #389838
+
+    &.error
+      background: orangered
+
+    &.info
+      background: #00acee
+
+@keyframes showNotification
+  to
+    opacity: 1
+    left: 0px

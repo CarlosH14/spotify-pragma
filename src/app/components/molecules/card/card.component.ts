@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { Single } from 'src/app/models/single.model';
 
 @Component({
@@ -9,5 +9,14 @@ import { Single } from 'src/app/models/single.model';
 export class CardComponent {
 
   @Input() song :Single;
+
+  @Input() areFavorite:boolean;
+
+  newFavorite:boolean = false;
+
+  addNewFavorite(){
+    this.newFavorite=true;
+    this.areFavorite = this.newFavorite
+  }
 
 }

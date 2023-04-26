@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AddedBy } from 'src/app/models/single.model';
+import { AddedBy } from 'src/app/models/tracks.model';
 
 @Component({
   selector: 'app-card-artist',

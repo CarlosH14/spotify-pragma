@@ -9,4 +9,6 @@ import { Single } from 'src/app/models/single.model';
 export class CardGridComponent {
 
   @Input() songs: Single[]
+
+  @Input() areFavorites: boolean[]
 }

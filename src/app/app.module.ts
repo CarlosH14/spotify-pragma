@@ -11,7 +11,6 @@ import { CardImageComponent } from './components/atoms/card-image/card-image.com
 import { CardSongComponent } from './components/atoms/card-song/card-song.component';
 import { CardArtistComponent } from './components/atoms/card-artist/card-artist.component';
 import { AddFavsButtonComponent } from './components/atoms/add-favs-button/add-favs-button.component';
-import { SeeMoreButtonComponent } from './components/atoms/see-more-button/see-more-button.component';
 import { NavbarButtonsComponent } from './components/molecules/navbar-buttons/navbar-buttons.component';
 import { SongInfoComponent } from './components/molecules/song-info/song-info.component';
 import { NavbarComponent } from './components/organisms/navbar/navbar.component';
@@ -22,6 +21,10 @@ import { FavoritesComponent } from './components/pages/favorites/favorites.compo
 import { SongComponent } from './components/pages/song/song.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { SpotifyService } from './services/spotify.service';
+import { AuthGuardService } from './services/auth-guard.service';
+import { AccessTokenComponent } from './services/auth/access-token/access-token.component';
+import { DeleteFavsButtonComponent } from './components/atoms/delete-favs-button/delete-favs-button.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,6 @@ import { RouterModule } from '@angular/router';
     CardSongComponent,
     CardArtistComponent,
     AddFavsButtonComponent,
-    SeeMoreButtonComponent,
     NavbarButtonsComponent,
     SongInfoComponent,
     NavbarComponent,
@@ -42,7 +44,9 @@ import { RouterModule } from '@angular/router';
     LoginComponent,
     HomeComponent,
     FavoritesComponent,
-    SongComponent
+    SongComponent,
+    AccessTokenComponent,
+    DeleteFavsButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,7 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true})
   ],
-  providers: [],
+  providers: [SpotifyService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Single } from '../models/single.model';
 import { Track } from '../models/tracks.model';
+import { map } from 'rxjs';
+import { __values } from 'tslib';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,72 +13,99 @@ export class SpotifyService {
   public credentials = {
     clientId : "c4200060223046dcaba50a927df28bbd",
     clientSecret : "4b2351ad772749c9af8f8b30331830a4",
-    accessToken : "BQA4fblh1Ua5h-F7WYInrBxyWDAbIqIJLdIxH3JAi0xk2eeKJFe-JQusHuSVg7jfJ9bHdw_xYJzwN0sfK2p4DgwZ6mJ5BCSenP-RG2-0RGLVUjqLZr8EkLk15NdSoeRJNsnw",
-    userId : "317yzdodeuf5mchij57i5osp33dm",
-    userToken : ""
+    accessToken : "",
+    // userId : "317yzdodeuf5mchij57i5osp33dm",
+    // userToken : ""
   }
 
-  public songs: Single[] = [];
+  public poolURLS = {
 
-  constructor(private http: HttpClient) { }
+    authorize: 'https://accounts.spotify.com/es-ES/authorize?client_id=' +
+      this.credentials.clientId + '&response_type=token' +
+      '&redirect_uri=' + encodeURIComponent('http://localhost:4200/callback') +
+      '&expires_in=3600&scope=user-library-read%20user-library-modify',
+    refreshAccessToken: 'https://accounts.spotify.com/api/token'
 
-  private getNewToken(){
-    this.http.post("https://accounts.spotify.com/api/token","grant_type=client_credentials&client_id="+this.credentials.clientId+"&client_secret="+this.credentials.clientSecret, {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-    })
-    .subscribe((data:any) => {this.credentials.accessToken = data.access_token; localStorage.setItem('token', data.access_token)});
-    return this.credentials.accessToken;
+
+  };
+
+  upDateToken(){
+    this.credentials.accessToken = sessionStorage.getItem('token') || '';
   }
 
-  isUserLogged(): boolean {
-    if (localStorage.getItem('token') !=null) {
-      return true;
-    }else{
-      return false;
-    }
-   }
-
-  getAllSongs(){
-
-    const headers = new HttpHeaders({
+  getQuery(query:string){
+    const URL = `https://api.spotify.com/v1/${query}`;
+    const HEADERS = {headers : new HttpHeaders({
       'Authorization' : 'Bearer ' + this.credentials.accessToken
-    });
+    })};
 
-    this.http.get<SongsResponse>('https://api.spotify.com/v1/playlists/37i9dQZF1DX9CCxc3fffni/tracks', {headers})
-    .subscribe(resp => {
-      resp.items.forEach(item => this.songs.push(new Single(item.track.name, item.track.artists, item.track.album.images[0].url, false)))
-    }
-      );
+    return this.http.get(URL, HEADERS)
+  }
 
-    return this.songs;
+  putQuery(query:string, BODY: string){
+    const URL = `https://api.spotify.com/v1/${query}`;
+    const HEADERS = {headers : new HttpHeaders({
+      'Authorization' : 'Bearer ' + this.credentials.accessToken
+    })};
+
+    console.log(BODY)
+
+    return this.http.put(URL, BODY ,HEADERS)
+  }
+
+  deleteQuery(query:string, BODY: string){
+    const URL = `https://api.spotify.com/v1/${query}`;
+    const HEADERS = {headers : new HttpHeaders({
+      'Authorization' : 'Bearer ' + this.credentials.accessToken
+    }), body: BODY};
+
+    console.log(BODY)
+
+    return this.http.delete(URL,HEADERS)
+  }
+
+  checkTokenSpoLogin(){
+    this.checkTokenSpo() || (sessionStorage.setItem('refererURL', location.href), window.location.href = this.poolURLS.authorize)
+  }
+
+  checkTokenSpo(){
+    return !!this.credentials.accessToken;
+  }
+
+  tokenRefreshURL(){
+    this.checkTokenSpo() && alert('Expiró la sesión');
+
+    this.credentials.accessToken = '';
+    sessionStorage.removeItem('token');
+    this.checkTokenSpoLogin();
+  }
+
+  constructor(private http: HttpClient) {
+    this.upDateToken();
+  }
+
+  getFavoritesSongs(){
+    return this.getQuery("me/tracks")
+      .pipe(map( (data: any) => data.items));
+  }
+
+  getPlaylistSongs(){
+    return this.getQuery("playlists/37i9dQZF1DX9CCxc3fffni/tracks?limit=50")
+      .pipe(map( (data: any) => data.items));
 
   }
 
-  getSong( songId:string){
-    this.getNewToken();
-
-    const headers = new HttpHeaders({
-      'Authorization' : 'Bearer ' + localStorage.getItem('token')
-    });
-
-    return this.http.get(`https://api.spotify.com/v1/tracks/${ songId }`, {headers});
-
+  saveTrack(id:string){
+    return this.putQuery("me/tracks", `["${id}"]`);
   }
 
-  // getFavoritesSongs() {
-  //   return this.favoritas;
-  // }
+  checkSavedTrack(id:string[]){
+  return this.getQuery(`me/tracks/contains?ids=${id}`)
+  .pipe(map( (data: any) => data));;
+  }
 
-  // saveNewFavorite(songId: any){
-  //   this.favoritas.push(songId);
-  //   this.favoritas = this.favoritas.filter((item,index)=>{
-  //     return this.favoritas.indexOf(item) === index;
-  //   })
-  // }
-
-  // deleteFavorite(songId: any){
-  //   this.favoritas = this.favoritas.filter(song => song != songId);
-  // }
+  deleteSavedTrack(id:string){
+    return this.deleteQuery("me/tracks", `["${id}"]`);
+  }
 
 }

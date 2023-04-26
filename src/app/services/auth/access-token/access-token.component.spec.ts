@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SeeMoreButtonComponent } from './see-more-button.component';
+import { AccessTokenComponent } from './access-token.component';
 
-describe('SeeMoreButtonComponent', () => {
-  let component: SeeMoreButtonComponent;
-  let fixture: ComponentFixture<SeeMoreButtonComponent>;
+describe('AccessTokenComponent', () => {
+  let component: AccessTokenComponent;
+  let fixture: ComponentFixture<AccessTokenComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SeeMoreButtonComponent ]
+      declarations: [ AccessTokenComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SeeMoreButtonComponent);
+    fixture = TestBed.createComponent(AccessTokenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

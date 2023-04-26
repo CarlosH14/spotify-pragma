@@ -1,0 +1,8 @@
+<div id="notification-area" *ngIf="deleted">
+  <button class="notification" (click)="notify(false); refresh()" > Deleted </button>
+</div>
+
+<button class="delete-fav" *ngIf="areFavorite" (click)="deleteFavorite(song); addNewItem(); notify(true)" >
+  Delete favorite
+</button>
+

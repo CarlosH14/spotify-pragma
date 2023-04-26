@@ -1,4 +1,4 @@
-<div class="card" *ngIf="!song.isFavorite">
+<div class="card" *ngIf="!areFavorite">
   <div class="card-info">
     <div class="song-image">
       <app-card-image [image]="song.songImageUrl"></app-card-image>
@@ -12,13 +12,13 @@
       </div>
     </div>
     <div class="buttons">
-      <app-see-more-button></app-see-more-button>
-      <app-add-favs-button [song]="song"></app-add-favs-button>
+      <app-delete-favs-button [song]="song" [areFavorite]="areFavorite" (newItemEvent)="addNewFavorite()"></app-delete-favs-button>
+      <app-add-favs-button [song]="song" [areFavorite]="areFavorite" (newItemEvent)="addNewFavorite()"></app-add-favs-button>
     </div>
   </div>
 </div>
 
-<div class="card-favorite" *ngIf="song.isFavorite">
+<div class="card-favorite" *ngIf="areFavorite">
   <div class="card-info">
     <div class="song-image">
       <app-card-image [image]="song.songImageUrl"></app-card-image>
@@ -32,8 +32,8 @@
       </div>
     </div>
     <div class="buttons">
-      <app-see-more-button></app-see-more-button>
-      <app-add-favs-button [song]="song"></app-add-favs-button>
+      <app-delete-favs-button [song]="song" [areFavorite]="areFavorite" (newItemEvent)="addNewFavorite()"></app-delete-favs-button>
+      <app-add-favs-button [song]="song" [areFavorite]="areFavorite" (newItemEvent)="addNewFavorite()"></app-add-favs-button>
     </div>
   </div>
 </div>
